@@ -35,6 +35,7 @@ func main() {
 		SigningKey: []byte("secret"),
 	}))
 	// GormAudit middleware, depends on registration of middleware.JWT
+	// Allow injecting CreatedBy and UpdatedBy into the db fields
 	e.Use(xmiddleware.GormAudit(db))
 
 	// APIs

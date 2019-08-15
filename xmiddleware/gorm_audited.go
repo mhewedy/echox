@@ -21,11 +21,13 @@ var DefaultGormAuditedConfig = GormAuditedConfig{
 }
 
 // GormAudit middleware, depends on registration of middleware.JWT
+// Allow injecting CreatedBy and UpdatedBy into the db fields
 func GormAudit(db *gorm.DB) echo.MiddlewareFunc {
 	return GormAuditWithConfig(db, DefaultGormAuditedConfig)
 }
 
 // GormAudit middleware, depends on registration of middleware.JWT
+// Allow injecting CreatedBy and UpdatedBy into the db fields
 func GormAuditWithConfig(db *gorm.DB, config GormAuditedConfig) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
