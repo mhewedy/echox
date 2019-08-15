@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/mhewedy/echo-xmiddleware/xmiddleware"
+	"github.com/mhewedy/echox/middlewarex"
 	"github.com/qor/audited"
 	"net/http"
 	"time"
@@ -36,12 +36,12 @@ func main() {
 	}))
 	// GormAudit middleware, depends on registration of middleware.JWT
 	// Allow injecting CreatedBy and UpdatedBy into the db fields
-	e.Use(xmiddleware.GormAudit(db))
+	e.Use(middlewarex.GormAudit(db))
 
 	// APIs
 	e.GET("/get-token", createToken)
 	// HasRole middleware, depends on registration of middleware.JWT
-	e.POST("/create-product", createProduct, xmiddleware.HasRole("admin"))
+	e.POST("/create-product", createProduct, middlewarex.HasRole("admin"))
 
 	// start
 	e.Logger.Fatal(e.Start(":1323"))
@@ -68,7 +68,7 @@ func createToken(c echo.Context) error {
 }
 
 var createProduct = func(c echo.Context) error {
-	db := xmiddleware.GetGormDB(c)
+	db := middlewarex.GetGormDB(c)
 	product := Product{code: "my-prod-code"}
 	db.Create(&product)
 	return c.JSON(http.StatusOK, &product)

@@ -1,4 +1,4 @@
-package xmiddleware
+package middlewarex
 
 import (
 	"fmt"

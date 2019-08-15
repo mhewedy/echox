@@ -1,4 +1,4 @@
-module github.com/mhewedy/echo-xmiddleware
+module github.com/mhewedy/echox
 
 go 1.12
 

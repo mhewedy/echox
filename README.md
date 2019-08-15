@@ -2,15 +2,15 @@
 ```go
 // GormAudit middleware, depends on registration of middleware.JWT
 // Allow injecting CreatedBy and UpdatedBy into the db fields
-e.Use(xmiddleware.GormAudit(db))
+e.Use(middlewarex.GormAudit(db))
 
 // Then get gorm db reference in the handler method via:
-db := xmiddleware.GetGormDB(context)    // context is of type echo.Context
+db := middlewarex.GetGormDB(context)    // context is of type echo.Context
 ```
 
 `HasRole` middleware
 ```go
 // HasRole middleware, depends on registration of middleware.JWT
-e.POST("/create-product", createProduct, xmiddleware.HasRole("admin"))
+e.POST("/create-product", createProduct, middlewarex.HasRole("admin"))
 
 ```

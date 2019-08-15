@@ -1,4 +1,4 @@
-package xmiddleware
+package middlewarex
 
 import (
 	"github.com/labstack/echo/v4"
