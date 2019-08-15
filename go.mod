@@ -1,4 +1,4 @@
-module echo-middleware
+module github.com/mhewedy/echo-xmiddleware
 
 go 1.12
 
