@@ -1,9 +1,9 @@
 package main
 
 import (
-	"echo-middleware/xmiddleware"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/mhewedy/echo-xmiddleware/xmiddleware"
 	"github.com/qor/audited"
 	"net/http"
 	"time"
