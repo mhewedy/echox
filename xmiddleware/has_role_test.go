@@ -15,7 +15,7 @@ func TestHasRoleWithTokenHasAdminRole(t *testing.T) {
 	hasRole := jwt(HasRole("admin")(func(context echo.Context) error {
 		return nil
 	}))
-
+	// token contains roles: [admin]
 	context := getContext("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjY3NDg3MTksImlkIjoxMDEsInJvbGVzIjpbImFkbWluIiwic3VwZXJ2aXNvciJdfQ.ZxC_XzPvPv6k4BwkvqU7qKoLA7Bz01oi2vzPNWMGba4")
 	err := hasRole(context)
 
@@ -30,7 +30,7 @@ func TestHasRoleWithTokenWithoutAdminRole(t *testing.T) {
 	hasRole := jwt(HasRole("admin")(func(context echo.Context) error {
 		return nil
 	}))
-
+	// token doest NOT contain roles: [admin]
 	context := getContext("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjY3NjI4MjYsImlkIjoxMDEsInJvbGVzIjpbInVzZXIiXX0.8XcD9EJzh7MuCdfDj7xO3_bI885h13H6ZEmvHeEm1r8")
 	err := hasRole(context)
 
