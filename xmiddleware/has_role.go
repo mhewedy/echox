@@ -35,7 +35,7 @@ func HasRoleWithConfig(config HasRoleConfig, roles ...string) echo.MiddlewareFun
 		}
 		return false
 	}
-	var httpErr = func(role string) error {
+	var errForbidden = func(role string) error {
 		return &echo.HTTPError{
 			Code:    http.StatusForbidden,
 			Message: fmt.Sprintf("role(s) [%s] required to access the resource", role)}
@@ -45,18 +45,18 @@ func HasRoleWithConfig(config HasRoleConfig, roles ...string) echo.MiddlewareFun
 
 			user := c.Get(config.JWTContextKey)
 			if user == nil {
-				return httpErr(strings.Join(roles, ", "))
+				return errForbidden(strings.Join(roles, ", "))
 			}
 
 			claims := user.(*jwt.Token).Claims.(jwt.MapClaims)
 			userRoles, ok := claims[config.RolesClaim].([]interface{})
 			if !ok {
-				return httpErr(strings.Join(roles, ", "))
+				return errForbidden(strings.Join(roles, ", "))
 			}
 
 			for _, r := range roles {
 				if !contains(r, userRoles) {
-					return httpErr(r)
+					return errForbidden(r)
 				}
 			}
 
