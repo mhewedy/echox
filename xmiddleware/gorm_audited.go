@@ -20,10 +20,12 @@ var DefaultGormAuditedConfig = GormAuditedConfig{
 	IDClaim:       "id",
 }
 
+// GormAudit middleware, depends on registration of middleware.JWT
 func GormAudit(db *gorm.DB) echo.MiddlewareFunc {
 	return GormAuditWithConfig(db, DefaultGormAuditedConfig)
 }
 
+// GormAudit middleware, depends on registration of middleware.JWT
 func GormAuditWithConfig(db *gorm.DB, config GormAuditedConfig) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {

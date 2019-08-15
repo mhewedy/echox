@@ -19,10 +19,12 @@ var DefaultHasRoleConfig = HasRoleConfig{
 	RolesClaim:    "roles",
 }
 
+// HasRole middleware, depends on registration of middleware.JWT
 func HasRole(roles ...string) echo.MiddlewareFunc {
 	return HasRoleWithConfig(DefaultHasRoleConfig, roles...)
 }
 
+// HasRole middleware, depends on registration of middleware.JWT
 func HasRoleWithConfig(config HasRoleConfig, roles ...string) echo.MiddlewareFunc {
 
 	var contains = func(e string, s []interface{}) bool {

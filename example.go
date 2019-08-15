@@ -34,10 +34,12 @@ func main() {
 		},
 		SigningKey: []byte("secret"),
 	}))
+	// GormAudit middleware, depends on registration of middleware.JWT
 	e.Use(xmiddleware.GormAudit(db))
 
 	// APIs
 	e.GET("/get-token", createToken)
+	// HasRole middleware, depends on registration of middleware.JWT
 	e.POST("/create-product", createProduct, xmiddleware.HasRole("admin"))
 
 	// start
