@@ -5,8 +5,7 @@
 e.Use(xmiddleware.GormAudit(db))
 
 // Then get gorm db reference in the handler method via:
-// context is of type echo.Context
-db := xmiddleware.GetGormDB(context)
+db := xmiddleware.GetGormDB(context)    // context is of type echo.Context
 ```
 
 `HasRole` middleware
