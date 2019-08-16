@@ -21,7 +21,10 @@ type Product struct {
 
 func main() {
 	e := echo.New()
-	db := initDatabase()
+	db, err := initDatabase()
+	if err != nil {
+		panic(err)
+	}
 	defer db.Close()
 
 	// JWT middleware
@@ -47,14 +50,14 @@ func main() {
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-func initDatabase() *gorm.DB {
+func initDatabase() (*gorm.DB, error) {
 	db, err := gorm.Open("sqlite3", "test.db")
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	audited.RegisterCallbacks(db)
 	db.AutoMigrate(&Product{})
-	return db
+	return db, nil
 }
 
 func createToken(c echo.Context) error {
