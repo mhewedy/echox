@@ -3,6 +3,8 @@ package middlewarex
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/stretchr/testify/assert"
+
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -19,9 +21,7 @@ func TestHasRoleWithTokenHasAdminRole(t *testing.T) {
 	context := getContext("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjY3NDg3MTksImlkIjoxMDEsInJvbGVzIjpbImFkbWluIiwic3VwZXJ2aXNvciJdfQ.ZxC_XzPvPv6k4BwkvqU7qKoLA7Bz01oi2vzPNWMGba4")
 	err := hasRole(context)
 
-	if err != nil {
-		t.Errorf("HasRole() should not return error")
-	}
+	assert.Nil(t, err)
 }
 
 func TestHasRoleWithTokenWithoutAdminRole(t *testing.T) {
@@ -34,10 +34,9 @@ func TestHasRoleWithTokenWithoutAdminRole(t *testing.T) {
 	context := getContext("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjY3NjI4MjYsImlkIjoxMDEsInJvbGVzIjpbInVzZXIiXX0.8XcD9EJzh7MuCdfDj7xO3_bI885h13H6ZEmvHeEm1r8")
 	err := hasRole(context)
 
-	if err == nil {
-		t.Errorf("HasRole() should return error")
-	}
-	strings.Contains(err.Error(), "[admin]")
+	assert.NotNil(t, err)
+	assert.Contains(t, err.Error(), "[admin]")
+	assert.Equal(t, err.(*echo.HTTPError).Code, 403)
 }
 
 func getContext(token string) echo.Context {
