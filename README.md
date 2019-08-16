@@ -1,3 +1,6 @@
+
+[![GoDoc](https://godoc.org/github.com/mhewedy/echox?status.svg)](https://godoc.org/github.com/mhewedy/echox)
+
 `GormAduit` middleware
 ```go
 // GormAudit middleware, depends on registration of middleware.JWT
