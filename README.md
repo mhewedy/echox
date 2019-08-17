@@ -1,6 +1,7 @@
 ## Set of Extensios for echo framework
 
 [![GoDoc](https://godoc.org/github.com/mhewedy/echox?status.svg)](https://godoc.org/github.com/mhewedy/echox)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mhewedy/echox)](https://goreportcard.com/report/github.com/mhewedy/echox)
 
 ### `GormAduit` middleware
 It associate current user (if exits from JWT token) with current db refernce so when you save an entity, the `CreatedBy`, `UpdatedBy` columns got populated.
